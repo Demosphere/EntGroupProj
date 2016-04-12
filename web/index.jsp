@@ -15,7 +15,7 @@
 <body>
 <article>
   <h1>The Loquaciously-Worded Login Service</h1>
-  <img src="images/loquaciously.jpg" alt="loquacious boss">
+  <img src="images/public_speaking.jpg" alt="loquacious boss">
   <p>The Loquaciously-Worded Login Service provides user management functions for your web application.</p>
   <p><a href="description.html">Service Description</a></p>
 </article>

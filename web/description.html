@@ -2,36 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="description.css" />
     <title>Service Description</title>
 </head>
 <body>
 <article>
     <h1>Service Description</h1>
-    <p class="aleft">The Loquaciously-Worded Login Service provides RESTful API.
+    <p class="aleft">The Loquaciously-Worded Login Service is a RESTful API.
         Use your browser's address bar to pass parameters to manage users for your web application. There are four
         management functions which you can perform: log a user into your application, subscribe a user, update
         user information, and delete a user.
     </p>
     <p class="aleft">To log a user into your application, you will need to pass in three parameters:
         your site key, the username, and the user's password. Use the following url to log a user into your application:
-    <pre>/auth-resource/login{parameters}</pre>
+    <pre>/auth-resource/login<span>{parameters}</span></pre>
     </p>
     <p><em>example:</em> <a href="/auth-resource/login{parameters}">/auth-resource/login{parameters}</a></p>
     <p class="aleft">To subscribe a new user, you will need to pass in four parameters: your site key, the username,
         the user's password, and the user's role. Use the following url to subscribe a user:
-    <pre>/auth-resource/subscribe{parameters}</pre>
+    <pre>/auth-resource/subscribe<span>{parameters}</span></pre>
     </p>
     <p><em>example:</em> <a href="/auth-resource/login{parameters}">/auth-resource/subscribe{parameters}</a></p>
     <p class="aleft">To unsubscribe an existing user, you will need to pass in two parameters: your site key and
         the username. Use the following url to unsubscribe a user:
-    <pre>/auth-resource/unsubscribe{parameters}</pre>
+    <pre>/auth-resource/unsubscribe<span>{parameters}</span></pre>
     </p>
     <p><em>example:</em> <a href="/auth-resource/login{parameters}">/auth-resource/unsubscribe{parameters}</a></p>
     <p class="aleft">To update a user's information, you will need to pass in four parameters:
         your site key, the username, the user's new password (if applicable), the user's new role (if applicable).
         Use the following url to update information for a user:
-    <pre>/auth-resource/update{parameters}</pre>
+    <pre>/auth-resource/update<span>{parameters}</span></pre>
     </p>
     <p><em>example:</em> <a href="/auth-resource/login{parameters}">/auth-resource/update{parameters}</a></p>
 </article>

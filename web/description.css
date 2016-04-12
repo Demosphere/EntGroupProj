@@ -2,14 +2,15 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
+    color: #7FDBFF;
 }
 
 article {
     padding: 10px 15px;
     margin: 30px auto;
-    width: 360px;
-    background-color: #dcdcdc;
-    border: solid 1px #bcbcbc;
+    width: 400px;
+    background-color: #001f3f;
+    border: solid 1px #001f3f;
     border-radius: 10px;
     text-align: center;
 }
@@ -20,7 +21,7 @@ article {
 
 h1 {
     font-size: 2em;
-    color: #000bc1;
+    color: #01FF70;
 }
 
 h2 {
@@ -28,37 +29,9 @@ h2 {
 }
 
 a {
-    color: #000bc1;
+    color: #FF851B;
 }
 
 pre span {
-    color: green;
-}
-body {
-     margin: 0;
-     padding: 0;
-     font-family: Arial, Helvetica, sans-serif;
-}
-
-article {
-    padding: 10px 15px;
-    margin: 30px auto;
-    width: 360px;
-    background-color: #dcdcdc;
-    border: solid 1px #bcbcbc;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.aleft {
-    text-align: left;
-}
-
-h1 {
-    font-size: 2em;
-    color: #000bc1;
-}
-
-a {
-    color: #000bc1;
+    color: #F012BE;
 }
