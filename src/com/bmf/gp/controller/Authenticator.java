@@ -41,8 +41,7 @@ public class Authenticator {
 
     @GET
     @Path("/login/{siteKey}/{username}/{password}")
-    @Produces("application/xml")
-    //@Produces( MediaType.APPLICATION_JSON )
+    //@Produces("application/xml")
     public String login(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
     //public String login(@PathParam("siteKey") String siteKey, @FormParam("username") String username, @FormParam("password") String password ) {
         log.info("The Call Was Successful");

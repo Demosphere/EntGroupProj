@@ -10,7 +10,7 @@
         <property name="connection.url">
             <!--jdbc:mysql://127.3.195.130:3306/tomcat -->
             <!-- jdbc:mysql://127.3.195.130:3306/groupproject -->
-            jdbc:mysql://127.3.195.130:3306/groupproj
+            jdbc:mysql://localhost:3306/groupproj
         </property>
         <property name="connection.username">
             user

@@ -22,7 +22,7 @@ public class SitesDao {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         sites = (Set<SitesEntity>)session.createCriteria
                 (SitesEntity
-                        .class);
+                        .class).list();
         return sites;
     }
 
