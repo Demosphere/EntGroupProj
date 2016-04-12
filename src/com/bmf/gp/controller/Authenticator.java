@@ -6,12 +6,16 @@ import com.bmf.gp.persistence.SitesDao;
 import com.bmf.gp.persistence.UsersEntityDaoWithHibernate;
 
 import javax.security.auth.login.LoginException;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import java.security.GeneralSecurityException;
 import java.util.*;
 /**
  * Created by Brendon on 3/31/2016.
  */
-
+@Path( "/auth-resource")
 public class Authenticator {
 
     public static final Integer NO_ROWS = -805;
@@ -26,13 +30,9 @@ public class Authenticator {
     private static Set<UsersEntity> usersStorage = new HashSet<>();
     private static Set<SitesEntity> sitesStorage = new HashSet<>();
 
-    // An authentication token storage which stores <service_key, auth_token>.
-    private final Map<String, String> authorizationTokensStorage = new HashMap();
-
     private Authenticator() {
     
         sitesStorage = siteRetriever.getAllSites();
-
     }
 
     public static Authenticator getInstance() {
@@ -43,6 +43,9 @@ public class Authenticator {
         return authenticator;
     }
 
+    @POST
+    @Path( "login" )
+    @Produces( MediaType.APPLICATION_JSON )
     public String login( String siteKey, String username, String password ) throws LoginException {
         if ( isSiteKeyValid(sitesStorage, siteKey) ) {
             usersStorage = siteRetriever.getSiteByKey(siteKey).getUsers();
@@ -50,7 +53,6 @@ public class Authenticator {
                 for (UsersEntity user : usersStorage) {
                     if ( user.getUserName().equals(username) && user.getPassword().equals( password ) ) {
                         String authToken = UUID.randomUUID().toString();
-                        authorizationTokensStorage.put( authToken, username );
 
                         return authToken;
                     }
@@ -60,13 +62,12 @@ public class Authenticator {
         throw new LoginException( "Don't Come Here Again!" );
     }
 
+    @POST
+    @Path( "logout" )
     public void logout( String siteKey, String authToken ) throws GeneralSecurityException {
         sitesStorage = siteRetriever.getAllSites();
         if ( isSiteKeyValid(sitesStorage, siteKey) ) {
-            if ( authorizationTokensStorage.containsKey( authToken ) ) {
-                   authorizationTokensStorage.remove( authToken );
-                   return;
-            }
+           return;
         }
 
         throw new GeneralSecurityException( "Invalid service key and authorization token match." );
@@ -81,6 +82,9 @@ public class Authenticator {
      * @return TRUE if the user was added
      *         FALSE if there was an error attempting to add the user to the sites userlist.
      */
+    @POST
+    @Path( "subscribe" )
+    @Produces( MediaType.APPLICATION_JSON )
     public int subscribeUser( String siteKey, String username, String password ) {
         sitesStorage = siteRetriever.getAllSites();
         if ( isSiteKeyValid(sitesStorage, siteKey) ) {
@@ -112,6 +116,9 @@ public class Authenticator {
      * @return TRUE if the user was added
      *         FALSE if there was an error attempting to add the user to the sites userlist.
      */
+    @POST
+    @Path( "unsubscribe" )
+    @Produces( MediaType.APPLICATION_JSON )
     public int unSubscribeUser( String siteKey, String username, String password ) {
         sitesStorage = siteRetriever.getAllSites();
         if ( isSiteKeyValid(sitesStorage, siteKey) ) {
@@ -146,9 +153,7 @@ public class Authenticator {
     public boolean isAuthTokenValid( String siteKey, String authToken ) {
         sitesStorage = siteRetriever.getAllSites();
         if ( isSiteKeyValid(sitesStorage, siteKey) ) {
-            if ( authorizationTokensStorage.containsKey( authToken ) ) {
-                return true;
-            }
+            return true;
         }
         return false;
     }
