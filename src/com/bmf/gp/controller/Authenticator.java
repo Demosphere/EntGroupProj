@@ -6,6 +6,7 @@ import com.bmf.gp.persistence.SitesDao;
 import com.bmf.gp.persistence.UsersEntityDaoWithHibernate;
 
 import javax.security.auth.login.LoginException;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -15,14 +16,13 @@ import java.util.*;
 /**
  * Created by Brendon on 3/31/2016.
  */
-@Path( "/auth-resource")
+@Path("/authenticator")
 public class Authenticator {
 
     public static final Integer NO_ROWS = -805;
     public static final Integer ROWS_FOUND = 100;
     public static final Integer INVALID = -948;
 
-    private static Authenticator authenticator = null;
     private static UsersEntityDaoWithHibernate userRetriever = new UsersEntityDaoWithHibernate();
     private static SitesDao siteRetriever = new SitesDao();
 
@@ -30,17 +30,13 @@ public class Authenticator {
     private static Set<UsersEntity> usersStorage = new HashSet<>();
     private static Set<SitesEntity> sitesStorage = new HashSet<>();
 
-    private Authenticator() {
-    
-        sitesStorage = siteRetriever.getAllSites();
-    }
-
-    public static Authenticator getInstance() {
-        if ( authenticator == null ) {
-            authenticator = new Authenticator();
-        }
-
-        return authenticator;
+    @GET
+    @Path("/get")
+    // The Java method will produce content identified by the MIME Media type "text/plain"
+    @Produces("text/plain")
+    public String getClichedMessage() {
+        // Return some cliched textual content
+        return "HELLS YEAH";
     }
 
     @POST
@@ -184,8 +180,8 @@ public class Authenticator {
     }
 
     public Integer retrieveUserID ( Set<UsersEntity> users, String userName) {
-        for(UsersEntity user : users) {
-            if(user.getUserName().equals(userName)){
+        for (UsersEntity user : users) {
+            if (user.getUserName().equals(userName)) {
                 return user.getUserId();
             }
         }
