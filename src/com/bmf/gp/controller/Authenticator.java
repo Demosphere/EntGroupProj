@@ -31,19 +31,20 @@ public class Authenticator {
     private static Set<SitesEntity> sitesStorage = new HashSet<>();
 
     @GET
-    @Path("/get")
+    @Path("/get/{siteKey}/{username}/{password}")
     // The Java method will produce content identified by the MIME Media type "text/plain"
     @Produces("text/plain")
-    public String getClichedMessage() {
+    public String getClichedMessage(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
         // Return some cliched textual content
-        return "HELLS YEAH";
+        return "HELLS YEAH " + siteKey +username +password;
     }
 
     @GET
-    @Path( "/login/{siteKey}/{username}/{password}" )
-    @Produces( MediaType.APPLICATION_JSON )
-    public String login(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) throws LoginException {
-    //public String login(@FormParam("siteKey") String siteKey, @FormParam("username") String username, @FormParam("password") String password ) throws LoginException {
+    @Path("/login/{siteKey}/{username}/{password}")
+    @Produces("application/xml")
+    //@Produces( MediaType.APPLICATION_JSON )
+    public String login(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
+    //public String login(@PathParam("siteKey") String siteKey, @FormParam("username") String username, @FormParam("password") String password ) {
         log.info("The Call Was Successful");
         if ( isSiteKeyValid(siteRetriever.getAllSites(), siteKey) ) {
             log.info("Site Key is Valid");
@@ -60,7 +61,7 @@ public class Authenticator {
                 }
             }
         }
-        throw new LoginException( "Don't Come Here Again!" );
+        return "failed login";
     }
 
 /*
