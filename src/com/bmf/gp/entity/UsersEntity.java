@@ -1,14 +1,9 @@
 package com.bmf.gp.entity;
 
-import javax.persistence.*;
-import java.io.Serializable;
-
 /**
  * Created by felic on 3/28/2016.
  */
-@Entity
-@Table(name = "users", schema = "groupproj")
-public class UsersEntity implements Serializable {
+public class UsersEntity {
 
     private Integer userId;
     private String userName;
@@ -25,9 +20,6 @@ public class UsersEntity implements Serializable {
         this.userRole = userRole;
     }
 
-    @Id
-    @Column(name = "user_id", unique = true, nullable = false, length = 11)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public Integer getUserId() {
         return userId;
     }
@@ -36,7 +28,6 @@ public class UsersEntity implements Serializable {
         this.userId = userId;
     }
 
-    @Column(name = "user_name", unique = true, nullable = false, length = 30)
     public String getUserName() {
         return userName;
     }
@@ -45,7 +36,6 @@ public class UsersEntity implements Serializable {
         this.userName = userName;
     }
 
-    @Column(name = "password", unique = false, nullable = false, length = 30)
     public String getPassword() {
         return password;
     }
@@ -54,7 +44,6 @@ public class UsersEntity implements Serializable {
         this.password = password;
     }
 
-    @Column(name = "user_role", unique = false, nullable = false, length = 20)
     public String getUserRole() {
         return userRole;
     }
@@ -63,8 +52,6 @@ public class UsersEntity implements Serializable {
         this.userRole = userRole;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="site_id")
     public SitesEntity getSite() {
         return site;
     }
@@ -73,7 +60,6 @@ public class UsersEntity implements Serializable {
         this.site = site;
     }
 
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -88,7 +74,6 @@ public class UsersEntity implements Serializable {
 
     }
 
-    @Override
     public int hashCode() {
         int result = userId != null ? userId.hashCode() : 0;
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
@@ -98,7 +83,6 @@ public class UsersEntity implements Serializable {
         return result;
     }
 
-    @Override
     public String toString() {
         return "UsersEntity{" +
                 "userId=" + userId +

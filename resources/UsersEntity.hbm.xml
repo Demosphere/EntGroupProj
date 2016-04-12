@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE hibernate-mapping PUBLIC
-    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.bmf.gp.entity.UsersEntity" table="users" schema="groupproj">
         <id name="userId" type="int" column="user_id">
@@ -10,5 +10,7 @@
         <property name="userName" column="user_name"/>
         <property name="password" column="password"/>
         <property name="userRole" column="user_role"/>
+        <many-to-one name="site" class="com.bmf.gp.entity.SitesEntity"
+                     column="site_id" not-null="true"/>
     </class>
 </hibernate-mapping>

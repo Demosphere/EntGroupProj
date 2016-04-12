@@ -1,15 +1,11 @@
 package com.bmf.gp.entity;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Set;
 
 /**
  * Created by felic on 3/28/2016.
  */
-@Entity
-@Table(name = "sites", schema = "groupproj")
-public class SitesEntity implements Serializable {
+public class SitesEntity {
 
     private Integer siteId;
     private String siteKey;
@@ -22,9 +18,6 @@ public class SitesEntity implements Serializable {
         this.siteKey = siteKey;
     }
 
-    @Id
-    @Column(name = "site_id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public Integer getSiteId() {
         return siteId;
     }
@@ -33,7 +26,7 @@ public class SitesEntity implements Serializable {
         this.siteId = siteId;
     }
 
-    @Column(name = "site_key", unique = true, nullable = false, length = 225)
+
     public String getSiteKey() {
         return siteKey;
     }
@@ -42,7 +35,6 @@ public class SitesEntity implements Serializable {
         this.siteKey = siteKey;
     }
 
-    @OneToMany(cascade= CascadeType.ALL, mappedBy="sites")
     public Set<UsersEntity> getUsers() {
         return users;
     }
@@ -55,7 +47,6 @@ public class SitesEntity implements Serializable {
         this.users.add(user);
     }
 
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -68,7 +59,6 @@ public class SitesEntity implements Serializable {
 
     }
 
-    @Override
     public int hashCode() {
         int result = siteId != null ? siteId.hashCode() : 0;
         result = 31 * result + (siteKey != null ? siteKey.hashCode() : 0);
@@ -76,7 +66,6 @@ public class SitesEntity implements Serializable {
         return result;
     }
 
-    @Override
     public String toString() {
         return "SitesEntity{" +
                 "siteId=" + siteId +
