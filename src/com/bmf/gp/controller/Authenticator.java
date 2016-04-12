@@ -4,12 +4,10 @@ import com.bmf.gp.entity.SitesEntity;
 import com.bmf.gp.entity.UsersEntity;
 import com.bmf.gp.persistence.SitesDao;
 import com.bmf.gp.persistence.UsersEntityDaoWithHibernate;
+import org.apache.log4j.Logger;
 
 import javax.security.auth.login.LoginException;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.security.GeneralSecurityException;
 import java.util.*;
@@ -18,6 +16,8 @@ import java.util.*;
  */
 @Path("/authenticator")
 public class Authenticator {
+
+    private final Logger log = Logger.getLogger(this.getClass());
 
     public static final Integer NO_ROWS = -805;
     public static final Integer ROWS_FOUND = 100;
@@ -39,15 +39,20 @@ public class Authenticator {
         return "HELLS YEAH";
     }
 
-    @POST
-    @Path( "login" )
+    @GET
+    @Path( "/login/{siteKey}/{username}/{password}" )
     @Produces( MediaType.APPLICATION_JSON )
-    public String login( String siteKey, String username, String password ) throws LoginException {
-        if ( isSiteKeyValid(sitesStorage, siteKey) ) {
+    public String login(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) throws LoginException {
+    //public String login(@FormParam("siteKey") String siteKey, @FormParam("username") String username, @FormParam("password") String password ) throws LoginException {
+        log.info("The Call Was Successful");
+        if ( isSiteKeyValid(siteRetriever.getAllSites(), siteKey) ) {
+            log.info("Site Key is Valid");
             usersStorage = siteRetriever.getSiteByKey(siteKey).getUsers();
             if ( siteHasUser(usersStorage, username) ) {
+                log.info("Site has User");
                 for (UsersEntity user : usersStorage) {
                     if ( user.getUserName().equals(username) && user.getPassword().equals( password ) ) {
+                        log.info("VALID USER!!!");
                         String authToken = UUID.randomUUID().toString();
 
                         return authToken;
@@ -57,6 +62,8 @@ public class Authenticator {
         }
         throw new LoginException( "Don't Come Here Again!" );
     }
+
+/*
 
     @POST
     @Path( "logout" )
@@ -69,7 +76,8 @@ public class Authenticator {
         throw new GeneralSecurityException( "Invalid service key and authorization token match." );
     }
 
-    /**
+    */
+/**
      * This method will add the specified user to the sites user list.
      *
      * @param siteKey
@@ -77,7 +85,8 @@ public class Authenticator {
      * @param password
      * @return TRUE if the user was added
      *         FALSE if there was an error attempting to add the user to the sites userlist.
-     */
+     *//*
+
     @POST
     @Path( "subscribe" )
     @Produces( MediaType.APPLICATION_JSON )
@@ -103,7 +112,8 @@ public class Authenticator {
         return INVALID;
     }
 
-    /**
+    */
+/**
      * This method will remove the specified user to the sites userlist.
      *
      * @param siteKey
@@ -111,7 +121,8 @@ public class Authenticator {
      * @param password
      * @return TRUE if the user was added
      *         FALSE if there was an error attempting to add the user to the sites userlist.
-     */
+     *//*
+
     @POST
     @Path( "unsubscribe" )
     @Produces( MediaType.APPLICATION_JSON )
@@ -137,6 +148,7 @@ public class Authenticator {
         }
         return INVALID;
     }
+*/
 
     /**
      * The method that pre-validates if the client which invokes the REST API is
