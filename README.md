@@ -39,7 +39,7 @@ Scope:
     * password
     * user_role
 
-###[Project Plan](projectPlan.md)
+###[Project Plan](projectplan.md)
 
 
 ###[Development Journal](journal.md)
