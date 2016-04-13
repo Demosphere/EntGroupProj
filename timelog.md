@@ -2,7 +2,7 @@
 
 | Date  | Task   | Hours  | Notes   |
 |-------|--------|--------|---------|
-| 3/16/16 | Set up repository | .5 | |
+| 3/16/16 | Set up repository | .5 | B, M, F |
 | 3/25/16 | Created database design, discussed team member tasks/roles, came up with a project plan | 2, 2, 2 | B, M, F |
 | 3/28/16 | Set up OpenShift database, created entities, created dao/daowithhibernate/daowithhibernatetest for Users table | 3 | F |
 | 4/5/16 | Took some PTO. Built out the inital framework of the project. Autheticator taking form | 8 | B |
