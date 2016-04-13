@@ -59,27 +59,4 @@ public class UsersEntity {
     public void setSite(SitesEntity site) {
         this.site = site;
     }
-
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        UsersEntity that = (UsersEntity) o;
-
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
-        if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        if (userRole != null ? !userRole.equals(that.userRole) : that.userRole != null) return false;
-        return site != null ? site.equals(that.site) : that.site == null;
-
-    }
-
-    public int hashCode() {
-        int result = userId != null ? userId.hashCode() : 0;
-        result = 31 * result + (userName != null ? userName.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (userRole != null ? userRole.hashCode() : 0);
-        result = 31 * result + (site != null ? site.hashCode() : 0);
-        return result;
-    }
 }

@@ -46,23 +46,4 @@ public class SitesEntity {
     public void addUser(UsersEntity user) {
         this.users.add(user);
     }
-
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        SitesEntity that = (SitesEntity) o;
-
-        if (siteId != null ? !siteId.equals(that.siteId) : that.siteId != null) return false;
-        if (siteKey != null ? !siteKey.equals(that.siteKey) : that.siteKey != null) return false;
-        return users != null ? users.equals(that.users) : that.users == null;
-
-    }
-
-    public int hashCode() {
-        int result = siteId != null ? siteId.hashCode() : 0;
-        result = 31 * result + (siteKey != null ? siteKey.hashCode() : 0);
-        result = 31 * result + (users != null ? users.hashCode() : 0);
-        return result;
-    }
 }

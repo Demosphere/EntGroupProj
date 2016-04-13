@@ -64,7 +64,7 @@ public class SitesEntityDaoWithHibernateTest {
         SitesEntity site = new SitesEntity();
         int sizeBefore;
         int sizeAfter;
-        site.setSiteId(8);
+        site.setSiteId(24);
 
         sizeBefore = dao.getAllSites().size();
         dao.deleteSite(site);

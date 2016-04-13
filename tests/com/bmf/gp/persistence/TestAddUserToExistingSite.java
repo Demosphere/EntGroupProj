@@ -13,7 +13,7 @@ public class TestAddUserToExistingSite {
     public void testAddUserToExistingSite() throws Exception {
 
         SitesDao dao = new SitesDao();
-        SitesEntity site = dao.getSite(1);
+        SitesEntity site = dao.getSite(7);
 
         UsersEntity user1 = new UsersEntity();
         user1.setUserName("Ultron");
