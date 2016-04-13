@@ -1,5 +1,10 @@
 package com.bmf.gp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+
 /**
  * Created by felic on 3/28/2016.
  */

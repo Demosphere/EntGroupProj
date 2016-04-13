@@ -2,15 +2,12 @@ package com.bmf.gp.controller;
 
 import com.bmf.gp.entity.SitesEntity;
 import com.bmf.gp.entity.UsersEntity;
+import com.bmf.gp.mapper.UserToJSON;
 import com.bmf.gp.persistence.SitesDao;
 import com.bmf.gp.persistence.UsersEntityDaoWithHibernate;
 import org.apache.log4j.Logger;
 
-import javax.security.auth.login.LoginException;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.io.Serializable;
-import java.security.GeneralSecurityException;
 import java.util.*;
 /**
  * Created by Brendon on 3/31/2016.
@@ -19,6 +16,7 @@ import java.util.*;
 public class Authenticator {
 
     private final Logger log = Logger.getLogger(this.getClass());
+    private UserToJSON mapper = new UserToJSON();
 
     public static final Integer NO_ROWS = -805;
     public static final Integer ROWS_FOUND = 100;
@@ -31,20 +29,18 @@ public class Authenticator {
     private static Set<UsersEntity> usersStorage = new HashSet<UsersEntity>();
     private static List<SitesEntity> sitesStorage = new ArrayList<SitesEntity>();
 
+    /**
+     * This method will add the specified user to the sites user list.
+     *
+     * @param siteKey
+     * @param username
+     * @param password
+     * @return JSONified UsersEntity
+     */
     @GET
-    @Path("/get/{siteKey}/{username}/{password}")
-    // The Java method will produce content identified by the MIME Media type "text/plain"
-    @Produces("text/plain")
-    public String getClichedMessage(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
-        // Return some cliched textual content
-        log.info("The Call Was Successful");
-        return "HELLS YEAH " + siteKey + username +password;
-    }
-
-    @GET
-    @Path("/login/{siteKey}/{username}/{password}")
-    //@Produces("application/xml")
-    public String login(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
+    @Path("/validate/{siteKey}/{username}/{password}")
+    @Produces("application/json")
+    public String validate(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) throws Exception{
     //public String login(@PathParam("siteKey") String siteKey, @FormParam("username") String username, @FormParam("password") String password ) {
         log.info("The Call Was Successful");
         if ( isSiteKeyValid(siteRetriever.getAllSites(), siteKey) ) {
@@ -55,9 +51,8 @@ public class Authenticator {
                 for (UsersEntity user : usersStorage) {
                     if ( user.getUserName().equals(username) && user.getPassword().equals( password ) ) {
                         log.info("VALID USER!!!");
-                        String authToken = UUID.randomUUID().toString();
 
-                        return authToken;
+                        return mapper.createJSONFromUser(user);
                     }
                 }
             }

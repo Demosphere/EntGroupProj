@@ -16,25 +16,25 @@ public class TestAddUserToExistingSite {
         SitesEntity site = dao.getSite(7);
 
         UsersEntity user1 = new UsersEntity();
-        user1.setUserName("Ultron");
+        user1.setUserName("Thanos");
         user1.setPassword("password1");
         user1.setUserRole("admin");
         site.addUser(user1);
 
         UsersEntity user2 = new UsersEntity();
-        user2.setUserName("Gamora");
+        user2.setUserName("Ronan");
         user2.setPassword("password1");
         user2.setUserRole("admin");
         site.addUser(user2);
 
         UsersEntity user3 = new UsersEntity();
-        user3.setUserName("Groot");
+        user3.setUserName("Magneto");
         user3.setPassword("password1");
         user3.setUserRole("admin");
         site.addUser(user3);
 
         UsersEntity user4 = new UsersEntity();
-        user4.setUserName("Rocket Raccoon");
+        user4.setUserName("GreenGoblin");
         user4.setPassword("password1");
         user4.setUserRole("admin");
         site.addUser(user4);
