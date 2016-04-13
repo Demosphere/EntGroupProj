@@ -8,16 +8,23 @@
             org.hibernate.dialect.MySQL5Dialect
         </property>
         <property name="connection.url">
+<<<<<<< HEAD
             <!-- jdbc:mysql://127.3.72.130:3306/groupproj -->
             jdbc:mysql://localhost:3306/groupproj
+=======
+            <!--jdbc:mysql://127.3.195.130:3306/tomcat -->
+             jdbc:mysql://127.3.72.130:3306/groupproj
+            <!-- jdbc:mysql://localhost:3306/groupproj -->
+>>>>>>> 599d31dd34bc96a705681d29e42bf829f51b46de
         </property>
         <property name="connection.username">
-            user
-            <!-- admin7KpuaQE@127.3.72.130 -->
+            <!-- user -->
+            admin7KpuaQE
         </property>
         <property name="connection.password">
-            user
-            <!-- feIqhcY1eQ7Y -->
+            <!-- user -->
+            <!-- user -->
+            feIqhcY1eQ7Y
         </property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <mapping class="com.bmf.gp.entity.UsersEntity"/>
