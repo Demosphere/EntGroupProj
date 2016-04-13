@@ -22,16 +22,11 @@ Scope:
   * attempt login
     * returns all varaibles that are required for the app for it to figure out if they can access pages
     * role, pass/fail login
-* admin level
-  * retreive all users for site.
-  * add user for site
-  * delete user for site
-  * update role for user.
 
 * DB design:
   * site
     * site_#
-    * site_uri
+    * site_key
   * users
     * user_id
     * site_#
