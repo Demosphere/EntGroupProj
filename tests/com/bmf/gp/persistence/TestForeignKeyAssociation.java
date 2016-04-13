@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import static org.junit.Assert.assertTrue;
 
@@ -18,20 +19,20 @@ public class TestForeignKeyAssociation {
         int insertedSiteId = 0;
 
         SitesEntity site = new SitesEntity();
-        site.setSiteKey("Test-Site-Key");
+        site.setSiteKey(UUID.randomUUID().toString());
 
         UsersEntity user1 = new UsersEntity();
-        user1.setUserName("Luke Cage");
+        user1.setUserName("Gamora");
         user1.setPassword("password1");
         user1.setUserRole("admin");
 
         UsersEntity user2 = new UsersEntity();
-        user2.setUserName("Captain America");
+        user2.setUserName("Groot");
         user2.setPassword("password1");
         user2.setUserRole("admin");
 
         UsersEntity user3 = new UsersEntity();
-        user3.setUserName("Black Widow");
+        user3.setUserName("Rocket Raccoon");
         user3.setPassword("password1");
         user3.setUserRole("admin");
 
