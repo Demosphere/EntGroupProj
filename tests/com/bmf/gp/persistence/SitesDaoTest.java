@@ -65,7 +65,7 @@ public class SitesDaoTest {
         SitesEntity site = new SitesEntity();
         int sizeBefore;
         int sizeAfter;
-        site.setSiteId(12);
+        site.setSiteId(57);
 
         sizeBefore = dao.getAllSites().size();
         dao.deleteSite(site);

@@ -66,7 +66,7 @@ public class UsersEntityDaoWithHibernateTest {
         UsersEntity user = new UsersEntity();
         int sizeBefore;
         int sizeAfter;
-        user.setUserId(26);
+        user.setUserId(35);
         sizeBefore = dao.getAllUsers().size();
         dao.deleteUser(user);
         sizeAfter = dao.getAllUsers().size();
