@@ -36,7 +36,7 @@ public class Authenticator {
     @Produces("text/plain")
     public String getClichedMessage(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
         // Return some cliched textual content
-        return "HELLS YEAH " + siteKey +username +password;
+        return "HELLS YEAH " + siteKey + username +password;
     }
 
     @GET
