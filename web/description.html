@@ -15,31 +15,31 @@
     </p>
     <p class="aleft">To log a user into your application, you will need to pass in three parameters:
         your site key, the username, and the user's password. Use the following url to log a user into your application:
-    <pre>rest/authenticator/login/<span>{site-key}</span>/<span>{username}</span>/<span>{password}</span></pre>
+    <pre>authenticator/login/<span>{site-key}</span>/<span>{username}</span>/<span>{password}</span></pre>
     </p>
-    <p><em>example:</em> <a href="rest/authenticator/login/87d3e948-efd0-40e2-af79-2d532c390d09/Groot/password1">
-        rest/authenticator/login/87d3e948-efd0-40e2-af79-2d532c390d09/Groot/password1</a></p>
+    <p><em>example:</em> <a href="authenticator/login/87d3e948-efd0-40e2-af79-2d532c390d09/Groot/password1">
+        authenticator/login/87d3e948-efd0-40e2-af79-2d532c390d09/Groot/password1</a></p>
     <p class="aleft">To subscribe a new user, you will need to pass in four parameters: your site key, the username,
         the user's password, and the user's role. Use the following url to subscribe a user:
     <pre>/auth-resource/subscribe<span>{site-key}</span>/<span>{username}</span>/<span>{password}</span>/
         <span>{role}</span></pre>
     </p>
-    <p><em>example:</em> <a href="rest/authenticator/subscribe/87d3e948-efd0-40e2-af79-2d532c390d09/Groot/password1/admin">
-        rest/authenticator/subscribe/87d3e948-efd0-40e2-af79-2d532c390d09/Groot/password1/admin</a></p>
+    <p><em>example:</em> <a href="authenticator/subscribe/87d3e948-efd0-40e2-af79-2d532c390d09/Groot/password1/admin">
+        authenticator/subscribe/87d3e948-efd0-40e2-af79-2d532c390d09/Groot/password1/admin</a></p>
     <p class="aleft">To unsubscribe an existing user, you will need to pass in two parameters: your site key and
         the username. Use the following url to unsubscribe a user:
     <pre>/auth-resource/unsubscribe<span>{site-key}</span>/<span>{username}</span></pre>
     </p>
-    <p><em>example:</em> <a href="rest/authenticator/unsubscribe/87d3e948-efd0-40e2-af79-2d532c390d09/Groot">
-        rest/authenticator/unsubscribe/87d3e948-efd0-40e2-af79-2d532c390d09/Groot</a></p>
+    <p><em>example:</em> <a href="authenticator/unsubscribe/87d3e948-efd0-40e2-af79-2d532c390d09/Groot">
+        authenticator/unsubscribe/87d3e948-efd0-40e2-af79-2d532c390d09/Groot</a></p>
     <p class="aleft">To update a user's information, you will need to pass in four parameters:
         your site key, the username, the user's new password (if applicable), the user's new role (if applicable).
         Use the following url to update information for a user:
-    <pre>/auth-resource/update<span>{site-key}</span>/<span>{username}</span>/<span>{password}</span>/<span>{role}
+    <pre>/authenticator/update<span>{site-key}</span>/<span>{username}</span>/<span>{password}</span>/<span>{role}
         </span></pre>
     </p>
-    <p><em>example:</em> <a href="rest/authenticator/update/87d3e948-efd0-40e2-af79-2d532c390d09/Groot/newpassword/admin">
-        rest/authenticator/update/87d3e948-efd0-40e2-af79-2d532c390d09/Groot/newpassword/admin</a></p>
+    <p><em>example:</em> <a href="authenticator/update/87d3e948-efd0-40e2-af79-2d532c390d09/Groot/newpassword/admin">
+        authenticator/update/87d3e948-efd0-40e2-af79-2d532c390d09/Groot/newpassword/admin</a></p>
 </article>
 </body>
 </html>

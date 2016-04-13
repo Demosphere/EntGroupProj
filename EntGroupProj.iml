@@ -14,15 +14,6 @@
         </sourceRoots>
       </configuration>
     </facet>
-    <facet type="hibernate" name="Hibernate">
-      <configuration>
-        <datasource-map>
-          <unit-entry name="resources:hibernate.cfg.xml" value="b773d8ea-6bff-4afd-a2d3-7caae8600a21" />
-        </datasource-map>
-        <naming-strategy-map />
-        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/resources/hibernate.cfg.xml" />
-      </configuration>
-    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -38,5 +29,14 @@
     <orderEntry type="library" scope="TEST" name="junit" level="application" />
     <orderEntry type="library" name="log4j" level="application" />
     <orderEntry type="library" name="mysql-connector-java-5.1.35-bin" level="application" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../ProjectDependencies/javax.ws.rs-api-2.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
