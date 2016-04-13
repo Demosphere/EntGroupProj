@@ -36,6 +36,7 @@ public class Authenticator {
     @Produces("text/plain")
     public String getClichedMessage(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
         // Return some cliched textual content
+        log.info("The Call Was Successful");
         return "HELLS YEAH " + siteKey + username +password;
     }
 
@@ -87,10 +88,10 @@ public class Authenticator {
      *         FALSE if there was an error attempting to add the user to the sites userlist.
      */
 
-    @POST
-    @Path( "subscribe" )
-    @Produces( MediaType.APPLICATION_JSON )
-    public String subscribeUser( String siteKey, String username, String password ) {
+    @PUT
+    @Path( "/subscribe/{siteKey}/{username}/{password}" )
+    //@Produces( MediaType.APPLICATION_JSON )
+    public String subscribe(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
         log.info("subscribe - The Call Was Successful");
         sitesStorage = siteRetriever.getAllSites();
         if ( isSiteKeyValid(sitesStorage, siteKey) ) {
@@ -98,17 +99,20 @@ public class Authenticator {
             log.info("subscribe - Site Key is Valid");
             usersStorage = siteRetriever.getSiteByKey(siteKey).getUsers();
             if ( !siteHasUser(usersStorage, username) ) {
-                log.info("subscribe - Site has User");
+                log.info("subscribe - Site does not have user");
 
-                UsersEntity newUser = new UsersEntity();
-                newUser.setUserName(username);
-                newUser.setPassword(password);
-                newUser.setUserRole("User");
-                newUser.setSite(siteRetriever.getSiteByKey(siteKey));
+                SitesDao dao = new SitesDao();
+                SitesEntity site = dao.getSiteByKey(siteKey);
 
-                int newUserID = userRetriever.addUser(newUser);
+                UsersEntity userNew = new UsersEntity();
+                userNew.setUserName(username);
+                userNew.setPassword(password);
+                userNew.setUserRole("user");
+                site.addUser(userNew);
 
-                return "User added:" + newUserID;
+                dao.updateSite(site);
+
+                return "User added";
             }
             return "Site already has user.";
         }
@@ -176,11 +180,15 @@ public class Authenticator {
      * storage. FALSE for otherwise.
      */
     public boolean isSiteKeyValid( List<SitesEntity> sites, String siteKey ) {
+        log.info("Here - 1.0");
         for(SitesEntity site : sites) {
+            log.info("Here - 2.0");
             if( site.getSiteKey().equals(siteKey)){
+                log.info("Here - 2.1");
                 return true;
             }
         }
+        log.info("Here - 3.0");
         return false;
     }
 

@@ -1,6 +1,8 @@
 package com.bmf.gp.persistence;
 
 import com.bmf.gp.entity.UsersEntity;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -51,7 +53,7 @@ public class UsersEntityDaoWithHibernateTest {
         UsersEntity user = new UsersEntity();
         int sizeBefore;
         int sizeAfter;
-        user.setUserId(5);
+        user.setUserId(000000000005);
         sizeBefore = dao.getAllUsers().size();
         dao.deleteUser(user);
         sizeAfter = dao.getAllUsers().size();
@@ -63,11 +65,11 @@ public class UsersEntityDaoWithHibernateTest {
     public void testAddUser() throws Exception {
 
         UsersEntityDaoWithHibernate dao = new UsersEntityDaoWithHibernate();
-        int insertUserId = 0;
+        int insertUserId = 000000000004;
 
         //create user to add
         UsersEntity user = new UsersEntity();
-        user.setUserName("Steel");
+        user.setUserName("Thing");
         user.setPassword("password1");
         user.setUserRole("admin");
 

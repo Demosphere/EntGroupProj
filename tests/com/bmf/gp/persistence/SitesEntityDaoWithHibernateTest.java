@@ -2,6 +2,8 @@ package com.bmf.gp.persistence;
 
 import com.bmf.gp.entity.SitesEntity;
 import org.apache.log4j.Logger;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -58,13 +60,14 @@ public class SitesEntityDaoWithHibernateTest {
     }
 
     @Test
+    @After
     public void testDeleteSite() throws Exception {
 
         SitesDao dao = new SitesDao();
         SitesEntity site = new SitesEntity();
         int sizeBefore;
         int sizeAfter;
-        site.setSiteId(24);
+        site.setSiteId(0000);
 
         sizeBefore = dao.getAllSites().size();
         dao.deleteSite(site);
@@ -74,10 +77,11 @@ public class SitesEntityDaoWithHibernateTest {
     }
 
     @Test
+    @Before
     public void testAddSite() throws Exception {
 
         SitesDao dao = new SitesDao();
-        int insertSiteId = 0;
+        int insertSiteId = 0000;
 
         //create site to add
         SitesEntity site = new SitesEntity();
