@@ -32,14 +32,22 @@ public class SitesDao {
     }
 
     public SitesEntity getSiteByKey(String key) {
+<<<<<<< HEAD
 
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
+=======
+            Session session = SessionFactoryProvider.getSessionFactory().openSession();
+>>>>>>> c18c5054b4aa6b1f9c299d9482ba90193ee90466
 
         Criteria crit = session.createCriteria(SitesEntity.class);
         crit.add( Restrictions.eq("siteKey",key) );
         List<SitesEntity> sites = crit.list();
 
+<<<<<<< HEAD
         return sites.get(0);
+=======
+            return sites.get(0);
+>>>>>>> c18c5054b4aa6b1f9c299d9482ba90193ee90466
     }
 
     public void updateSite(SitesEntity site) {
