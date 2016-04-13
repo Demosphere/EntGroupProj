@@ -36,7 +36,6 @@ Completed:
 
 ###4/6/16
   * Worked on getting more details of the service working. This is where the project starts to go FUBAR in several ways. First, nobody project worked quite the same way. One could compile and build, another could not. One issue would be fixed and two more revealed. It was the start of what looked a lot like [this](http://thecodinglove.com/post/142634733056/when-i-have-spent-hours-for-the-stupidest-bug-ever) and [this](http://thecodinglove.com/post/140341983198/thinking-about-all-these-bugs).
-  *
 
 ###4/9/16
 
