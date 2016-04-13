@@ -27,7 +27,8 @@ Completed:
 * Created entities for all database tables (users, user_roles, user_roles pk, sites)
 * Create UsersEntityDao, UsersEntityDaoWithHibernate, UsersEntityDaoWithHibernateTest
 * Unsuccessfully attempted to connect to database hosted on OpenShift
-* We had a hell of a time getting the service to connect to the OpenShift hosted database. We gave up attempting it in the short term. 
+* We had a hell of a time getting the service to connect to the OpenShift hosted database. We gave up attempting it in the short term.
+
 ###4/5/16
 
 Completed:
