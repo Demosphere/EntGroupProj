@@ -20,9 +20,7 @@ public class SitesDao {
     public List<SitesEntity> getAllSites() {
         List<SitesEntity> sites;
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        sites = (List<SitesEntity>)session.createCriteria
-                (SitesEntity
-                        .class).list();
+        sites = (List<SitesEntity>)session.createCriteria (SitesEntity.class).list();
         return sites;
     }
 
@@ -32,13 +30,18 @@ public class SitesDao {
     }
 
     public SitesEntity getSiteByKey(String key) {
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        try {
 
-        Criteria crit = session.createCriteria(SitesEntity.class);
-        crit.add( Restrictions.eq("siteKey",key) );
-        List<SitesEntity> sites = crit.list();
+            Session session = SessionFactoryProvider.getSessionFactory().openSession();
 
-        return sites.get(0);
+            Criteria crit = session.createCriteria(SitesEntity.class);
+            crit.add( Restrictions.eq("siteKey",key) );
+            List<SitesEntity> sites = crit.list();
+
+            return sites.get(0);
+        } catch (Exception ex) {
+            return new SitesEntity();
+        }
     }
 
     public void updateSite(SitesEntity site) {
