@@ -52,7 +52,7 @@ public class UsersEntityDaoWithHibernateTest {
         UsersEntity user = new UsersEntity();
         user.setUserId(1);
         user.setUserName("AtomGirl");
-        user.setPassword("password1");
+        user.setPassword("newpassword1");
         user.setUserRole("admin");
 
         dao.updateUser(user);
