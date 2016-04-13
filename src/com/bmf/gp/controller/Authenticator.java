@@ -2,14 +2,12 @@ package com.bmf.gp.controller;
 
 import com.bmf.gp.entity.SitesEntity;
 import com.bmf.gp.entity.UsersEntity;
+import com.bmf.gp.mapper.UserToJSON;
 import com.bmf.gp.persistence.SitesDao;
 import com.bmf.gp.persistence.UsersEntityDaoWithHibernate;
 import org.apache.log4j.Logger;
 
-import javax.security.auth.login.LoginException;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.security.GeneralSecurityException;
 import java.util.*;
 /**
  * Created by Brendon on 3/31/2016.
@@ -18,6 +16,7 @@ import java.util.*;
 public class Authenticator {
 
     private final Logger log = Logger.getLogger(this.getClass());
+    private UserToJSON mapper = new UserToJSON();
 
     public static final Integer NO_ROWS = -805;
     public static final Integer ROWS_FOUND = 100;
@@ -43,7 +42,7 @@ public class Authenticator {
     @GET
     @Path("/validate/{siteKey}/{username}/{password}")
     @Produces("text/plain")
-    public String validate(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
+    public String validate(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) throws Exception{
     //public String login(@PathParam("siteKey") String siteKey, @FormParam("username") String username, @FormParam("password") String password ) {
         log.info("The Call Was Successful");
         if ( isSiteKeyValid(siteRetriever.getAllSites(), siteKey) ) {
@@ -54,9 +53,8 @@ public class Authenticator {
                 for (UsersEntity user : usersStorage) {
                     if ( user.getUserName().equals(username) && user.getPassword().equals( password ) ) {
                         log.info("VALID USER!!!");
-                        String authToken = UUID.randomUUID().toString();
 
-                        return authToken;
+                        return mapper.createJSONFromUser(user);
                     }
                 }
             }
@@ -125,30 +123,30 @@ public class Authenticator {
      * @param password
      * @return TRUE if the user was added
      *         FALSE if there was an error attempting to add the user to the sites userlist.
-     *//*
-
-    @POST
-    @Path( "unsubscribe" )
-    @Produces( MediaType.APPLICATION_JSON )
-    public int unSubscribeUser( String siteKey, String username, String password ) {
+     */
+    @DELETE
+    @Path( "/unsubscribe/{siteKey}/{username}/{password}" )
+    //@Produces( MediaType.APPLICATION_JSON )
+    public String unsubscribe(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
+        log.info("unsubscribe - The Call Was Successful");
         sitesStorage = siteRetriever.getAllSites();
         if ( isSiteKeyValid(sitesStorage, siteKey) ) {
 
+            log.info("unsubscribe - Site Key is Valid");
             usersStorage = siteRetriever.getSiteByKey(siteKey).getUsers();
             if ( siteHasUser(usersStorage, username) ) {
 
                 UsersEntity newUser = new UsersEntity();
                 newUser.setUserId(userRetriever.getUserByUsername(username).getUserId());
-
                 boolean newUserID = userRetriever.deleteUser(newUser);
 
-                return ROWS_FOUND;
+                return "User Deleted";
             }
-            return NO_ROWS;
+            return "User not found for site";
         }
-        return INVALID;
+        return "Site Invalid";
     }
-*/
+
     /**
      * This method checks is the service key is valid
      *
