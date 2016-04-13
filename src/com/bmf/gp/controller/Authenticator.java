@@ -41,7 +41,7 @@ public class Authenticator {
 
     @GET
     @Path("/validate/{siteKey}/{username}/{password}")
-    @Produces("text/plain")
+    @Produces("application/json")
     public String validate(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) throws Exception{
     //public String login(@PathParam("siteKey") String siteKey, @FormParam("username") String username, @FormParam("password") String password ) {
         log.info("The Call Was Successful");

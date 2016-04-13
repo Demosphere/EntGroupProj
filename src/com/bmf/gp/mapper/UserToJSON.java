@@ -15,7 +15,7 @@ public class UserToJSON {
 
     public String createJSONFromUser(UsersEntity user) throws JsonProcessingException {
         String jsonString = mapper.writeValueAsString(user);
-        logger.debug(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
+        //logger.debug(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
         return jsonString;
     }
 }
