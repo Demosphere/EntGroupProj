@@ -22,21 +22,6 @@ public class AuthenticatorTest {
     private final Logger log = Logger.getLogger(this.getClass());
 
     @Test
-    public void testLogin() throws Exception {
-
-    }
-
-    @Test
-    public void testSubscribeUser() throws Exception {
-
-    }
-
-    @Test
-    public void testIsAuthTokenValid() throws Exception {
-
-    }
-
-    @Test
     public void testIsSiteKeyValid() throws Exception {
 
         SitesEntity site1 = new SitesEntity();
