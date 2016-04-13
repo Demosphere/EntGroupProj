@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -18,9 +19,10 @@ public class SitesDao {
     private final Logger log = Logger.getLogger(this.getClass());
 
     public List<SitesEntity> getAllSites() {
-        List<SitesEntity> sites;
+        List<SitesEntity> sites = new ArrayList<SitesEntity>();
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        sites = (List<SitesEntity>)session.createCriteria (SitesEntity.class).list();
+        sites = (ArrayList<SitesEntity>)session.createCriteria(SitesEntity.class).list();
+
         return sites;
     }
 
@@ -30,18 +32,14 @@ public class SitesDao {
     }
 
     public SitesEntity getSiteByKey(String key) {
-        try {
 
-            Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
 
-            Criteria crit = session.createCriteria(SitesEntity.class);
-            crit.add( Restrictions.eq("siteKey",key) );
-            List<SitesEntity> sites = crit.list();
+        Criteria crit = session.createCriteria(SitesEntity.class);
+        crit.add( Restrictions.eq("siteKey",key) );
+        List<SitesEntity> sites = crit.list();
 
-            return sites.get(0);
-        } catch (Exception ex) {
-            return new SitesEntity();
-        }
+        return sites.get(0);
     }
 
     public void updateSite(SitesEntity site) {
@@ -70,7 +68,7 @@ public class SitesDao {
 
         try {
             dbTransaction = session.beginTransaction();
-            SitesEntity siteToDelete = (SitesEntity) session.get(SitesEntity.class, site.getSiteId());
+            SitesEntity siteToDelete = (SitesEntity)session.get(SitesEntity.class, site.getSiteId());
             session.delete(siteToDelete);
             dbTransaction.commit();
 
@@ -94,7 +92,7 @@ public class SitesDao {
             tx = session.beginTransaction();
             siteId = (Integer) session.save(site);
             tx.commit();
-            log.info("Added site: " + siteId);
+            log.info("Added site: " + site + " with id of: " + siteId);
         } catch (HibernateException e) {
             if (tx!=null) tx.rollback();
             log.error(e);
