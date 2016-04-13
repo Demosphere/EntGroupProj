@@ -31,7 +31,7 @@ Scope:
 * DB design:
   * site
     * site_#
-    * site_uri
+    * site_key
   * users
     * user_id
     * site_#
