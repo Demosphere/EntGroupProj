@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import javax.security.auth.login.LoginException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.Serializable;
 import java.security.GeneralSecurityException;
 import java.util.*;
 /**
@@ -127,30 +128,30 @@ public class Authenticator {
      * @param password
      * @return TRUE if the user was added
      *         FALSE if there was an error attempting to add the user to the sites userlist.
-     *//*
-
-    @POST
-    @Path( "unsubscribe" )
-    @Produces( MediaType.APPLICATION_JSON )
-    public int unSubscribeUser( String siteKey, String username, String password ) {
+     */
+    @DELETE
+    @Path( "/unsubscribe/{siteKey}/{username}/{password}" )
+    //@Produces( MediaType.APPLICATION_JSON )
+    public String unsubscribe(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
+        log.info("unsubscribe - The Call Was Successful");
         sitesStorage = siteRetriever.getAllSites();
         if ( isSiteKeyValid(sitesStorage, siteKey) ) {
 
+            log.info("unsubscribe - Site Key is Valid");
             usersStorage = siteRetriever.getSiteByKey(siteKey).getUsers();
             if ( siteHasUser(usersStorage, username) ) {
 
                 UsersEntity newUser = new UsersEntity();
                 newUser.setUserId(userRetriever.getUserByUsername(username).getUserId());
-
                 boolean newUserID = userRetriever.deleteUser(newUser);
 
-                return ROWS_FOUND;
+                return "User Deleted";
             }
-            return NO_ROWS;
+            return "User not found for site";
         }
-        return INVALID;
+        return "Site Invalid";
     }
-*/
+
     /**
      * This method checks is the service key is valid
      *

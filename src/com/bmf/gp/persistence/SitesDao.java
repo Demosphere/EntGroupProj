@@ -30,8 +30,6 @@ public class SitesDao {
     }
 
     public SitesEntity getSiteByKey(String key) {
-        try {
-
             Session session = SessionFactoryProvider.getSessionFactory().openSession();
 
             Criteria crit = session.createCriteria(SitesEntity.class);
@@ -39,9 +37,6 @@ public class SitesDao {
             List<SitesEntity> sites = crit.list();
 
             return sites.get(0);
-        } catch (Exception ex) {
-            return new SitesEntity();
-        }
     }
 
     public void updateSite(SitesEntity site) {

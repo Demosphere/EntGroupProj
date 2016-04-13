@@ -67,10 +67,10 @@ public class SitesEntityDaoWithHibernateTest {
         SitesEntity site = new SitesEntity();
         int sizeBefore;
         int sizeAfter;
-        site.setSiteId(0000);
+        site.setSiteId(2);
 
         sizeBefore = dao.getAllSites().size();
-        dao.deleteSite(site);
+        boolean pass = dao.deleteSite(site);
         sizeAfter = dao.getAllSites().size();
 
         assertTrue("The site was not deleted", sizeBefore > sizeAfter);
@@ -81,7 +81,7 @@ public class SitesEntityDaoWithHibernateTest {
     public void testAddSite() throws Exception {
 
         SitesDao dao = new SitesDao();
-        int insertSiteId = 0000;
+        int insertSiteId = 1;
 
         //create site to add
         SitesEntity site = new SitesEntity();
