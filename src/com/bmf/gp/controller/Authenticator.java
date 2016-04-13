@@ -41,9 +41,9 @@ public class Authenticator {
     }
 
     @GET
-    @Path("/login/{siteKey}/{username}/{password}")
-    //@Produces("application/xml")
-    public String login(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
+    @Path("/validate/{siteKey}/{username}/{password}")
+    @Produces("text/plain")
+    public String validate(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
     //public String login(@PathParam("siteKey") String siteKey, @FormParam("username") String username, @FormParam("password") String password ) {
         log.info("The Call Was Successful");
         if ( isSiteKeyValid(siteRetriever.getAllSites(), siteKey) ) {
@@ -64,20 +64,18 @@ public class Authenticator {
         return "failed login";
     }
 
-/*
 
-    @POST
-    @Path( "logout" )
-    public void logout( String siteKey, String authToken ) throws GeneralSecurityException {
+/*    @POST
+    @Path( "logout/{siteKey}/{username}" )
+    public void logout(PathParam("siteKey") String siteKey, @PathParam("username") String username ) throws GeneralSecurityException {
         sitesStorage = siteRetriever.getAllSites();
         if ( isSiteKeyValid(sitesStorage, siteKey) ) {
            return;
         }
 
         throw new GeneralSecurityException( "Invalid service key and authorization token match." );
-    }
+    }*/
 
-    */
 /**
      * This method will add the specified user to the sites user list.
      *
