@@ -2,8 +2,6 @@ package com.bmf.gp.persistence;
 
 import com.bmf.gp.entity.SitesEntity;
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -13,9 +11,10 @@ import java.util.UUID;
 import static org.junit.Assert.*;
 
 /**
- * Created by felic on 4/8/2016.
+ * Created by felic on 4/13/2016.
  */
-public class SitesEntityDaoWithHibernateTest {
+public class SitesDaoTest {
+
     private final Logger log = Logger.getLogger(this.getClass());
 
     @Test
@@ -31,20 +30,20 @@ public class SitesEntityDaoWithHibernateTest {
     public void testGetSite() throws Exception {
 
         SitesDao dao = new SitesDao();
-        SitesEntity site = dao.getSite(16);
+        SitesEntity site = dao.getSite(22);
         assertNotNull("Could not get site", site);
     }
 
     @Test
-    public void testGetSiteIdByKey() throws Exception {
+    public void testGetSiteByKey() throws Exception {
 
         SitesDao dao = new SitesDao();
-        SitesEntity site = dao.getSiteByKey("55c40d6a-d498-41e0-899f-c1f4af71f39e");
+        SitesEntity site = dao.getSiteByKey("87d3e948-efd0-40e2-af79-2d532c390d09");
 
         Integer siteId = site.getSiteId();
         log.info("Site Id: " + siteId);
 
-        assertNotNull("Could not get site", site.toString());
+        assertNotNull("Could not get site", site.getSiteId());
     }
 
     @Test
@@ -52,22 +51,22 @@ public class SitesEntityDaoWithHibernateTest {
 
         SitesDao dao = new SitesDao();
         SitesEntity site = new SitesEntity();
-        site.setSiteId(12);
-        site.setSiteKey("Updated-Test-Site-Key");
+        site.setSiteId(7);
+        site.setSiteKey(UUID.randomUUID().toString());
 
         dao.updateSite(site);
-        assertEquals("This is the wrong site", "Updated-Test-Site-Key", site.getSiteKey());
+        assertNotNull("Could not update site", site.getSiteId());
     }
 
     @Test
-    @After
     public void testDeleteSite() throws Exception {
 
         SitesDao dao = new SitesDao();
         SitesEntity site = new SitesEntity();
         int sizeBefore;
         int sizeAfter;
-        site.setSiteId(18);
+        site.setSiteId(12);
+
         sizeBefore = dao.getAllSites().size();
         dao.deleteSite(site);
         sizeAfter = dao.getAllSites().size();
@@ -76,13 +75,11 @@ public class SitesEntityDaoWithHibernateTest {
     }
 
     @Test
-    @Before
     public void testAddSite() throws Exception {
 
         SitesDao dao = new SitesDao();
-        int insertSiteId;
+        int insertSiteId = 0;
 
-        //create site to add
         SitesEntity site = new SitesEntity();
         site.setSiteKey(UUID.randomUUID().toString());
 

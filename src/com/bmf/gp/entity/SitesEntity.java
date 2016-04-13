@@ -1,12 +1,12 @@
 package com.bmf.gp.entity;
 
+import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Created by felic on 3/28/2016.
+ * Created by felic on 4/13/2016.
  */
 public class SitesEntity {
-
     private Integer siteId;
     private String siteKey;
     private Set<UsersEntity> users;
@@ -25,7 +25,6 @@ public class SitesEntity {
     public void setSiteId(Integer siteId) {
         this.siteId = siteId;
     }
-
 
     public String getSiteKey() {
         return siteKey;

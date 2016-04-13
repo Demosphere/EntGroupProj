@@ -22,17 +22,17 @@ public class TestForeignKeyAssociation {
         site.setSiteKey(UUID.randomUUID().toString());
 
         UsersEntity user1 = new UsersEntity();
-        user1.setUserName("Gamora");
+        user1.setUserName("Mystique");
         user1.setPassword("password1");
         user1.setUserRole("admin");
 
         UsersEntity user2 = new UsersEntity();
-        user2.setUserName("Groot");
+        user2.setUserName("Medusa");
         user2.setPassword("password1");
         user2.setUserRole("admin");
 
         UsersEntity user3 = new UsersEntity();
-        user3.setUserName("Rocket Raccoon");
+        user3.setUserName("Magneto");
         user3.setPassword("password1");
         user3.setUserRole("admin");
 
