@@ -2,8 +2,6 @@ package com.bmf.gp.controller;
 
 import com.bmf.gp.entity.SitesEntity;
 import com.bmf.gp.entity.UsersEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
