@@ -65,21 +65,7 @@ public class Authenticator {
         return "failed login";
     }
 
-/*
-
-    @POST
-    @Path( "logout" )
-    public void logout( String siteKey, String authToken ) throws GeneralSecurityException {
-        sitesStorage = siteRetriever.getAllSites();
-        if ( isSiteKeyValid(sitesStorage, siteKey) ) {
-           return;
-        }
-
-        throw new GeneralSecurityException( "Invalid service key and authorization token match." );
-    }
-
-    */
-/**
+    /**
      * This method will add the specified user to the sites user list.
      *
      * @param siteKey
@@ -120,7 +106,7 @@ public class Authenticator {
         return "Invalid site.";
     }
 
-/**
+    /**
      * This method will remove the specified user to the sites userlist.
      *
      * @param siteKey
