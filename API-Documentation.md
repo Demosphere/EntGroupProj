@@ -34,8 +34,8 @@ To register your site, please submit an Issue with your site name and email addr
 ####Responses
 #####Success Response
 * When successfully logging in, the service will return the JSONified User Entity
-* > { "userId" : <userId> , "userName" : <userName> , "password" : <password> , "userRole" : <role> }
+* > { "userId" : [userId] , "userName" : [userName] , "password" : [password] , "userRole" : [role] }
 
 ##### Failure Response
 * Returned when the method request fails
-* > { "error": <message>, "method": <api method>, "description": <failure reason> 
+* > { "error": [message], "method": [api method], "description": [failure reason] }
