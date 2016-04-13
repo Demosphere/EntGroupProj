@@ -43,3 +43,5 @@ Scope:
 
 
 ###[Development Journal](journal.md)
+
+###[Demo](http://tomcatserver2-demosphere.rhcloud.com/EntGroupProj_Web/description.html)
