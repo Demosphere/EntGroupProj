@@ -29,16 +29,14 @@ public class Authenticator {
     private static Set<UsersEntity> usersStorage = new HashSet<UsersEntity>();
     private static List<SitesEntity> sitesStorage = new ArrayList<SitesEntity>();
 
-    @GET
-    @Path("/get/{siteKey}/{username}/{password}")
-    // The Java method will produce content identified by the MIME Media type "text/plain"
-    @Produces("text/plain")
-    public String getClichedMessage(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
-        // Return some cliched textual content
-        log.info("The Call Was Successful");
-        return "HELLS YEAH " + siteKey + username +password;
-    }
-
+    /**
+     * This method will add the specified user to the sites user list.
+     *
+     * @param siteKey
+     * @param username
+     * @param password
+     * @return JSONified UsersEntity
+     */
     @GET
     @Path("/validate/{siteKey}/{username}/{password}")
     @Produces("application/json")
@@ -62,23 +60,7 @@ public class Authenticator {
         return "failed login";
     }
 
-<<<<<<< HEAD
-
-/*    @POST
-    @Path( "logout/{siteKey}/{username}" )
-    public void logout(PathParam("siteKey") String siteKey, @PathParam("username") String username ) throws GeneralSecurityException {
-        sitesStorage = siteRetriever.getAllSites();
-        if ( isSiteKeyValid(sitesStorage, siteKey) ) {
-           return;
-        }
-
-        throw new GeneralSecurityException( "Invalid service key and authorization token match." );
-    }*/
-
-/**
-=======
     /**
->>>>>>> a62684688dc115fc6d6462bfacf00dceb836e453
      * This method will add the specified user to the sites user list.
      *
      * @param siteKey
