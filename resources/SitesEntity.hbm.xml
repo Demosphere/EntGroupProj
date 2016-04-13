@@ -8,7 +8,7 @@
             <generator class="native"/>
         </id>
         <property name="siteKey" column="site_key"/>
-        <set name="users" cascade="all">
+        <set name="users" cascade="all" lazy="true">
             <key column="site_id"/>
             <one-to-many class="com.bmf.gp.entity.UsersEntity"/>
         </set>

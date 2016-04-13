@@ -11,6 +11,6 @@
         <property name="password" column="password"/>
         <property name="userRole" column="user_role"/>
         <many-to-one name="site" class="com.bmf.gp.entity.SitesEntity"
-                     column="site_id" not-null="true"/>
+                     column="site_id" />
     </class>
 </hibernate-mapping>

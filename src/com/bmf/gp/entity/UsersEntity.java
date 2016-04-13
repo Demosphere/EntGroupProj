@@ -82,14 +82,4 @@ public class UsersEntity {
         result = 31 * result + (site != null ? site.hashCode() : 0);
         return result;
     }
-
-    public String toString() {
-        return "UsersEntity{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", userRole='" + userRole + '\'' +
-                ", site=" + site +
-                '}';
-    }
 }

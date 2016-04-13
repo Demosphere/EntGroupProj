@@ -25,7 +25,7 @@ public class UsersEntityDaoWithHibernateTest {
     public void testGetUser() throws Exception {
 
         UsersEntityDaoWithHibernate dao = new UsersEntityDaoWithHibernate();
-        UsersEntity user = dao.getUser(1);
+        UsersEntity user = dao.getUser(36);
 
         assertNotNull("Could not get user", user);
     }
@@ -51,7 +51,7 @@ public class UsersEntityDaoWithHibernateTest {
         UsersEntity user = new UsersEntity();
         int sizeBefore;
         int sizeAfter;
-        user.setUserId(3);
+        user.setUserId(5);
         sizeBefore = dao.getAllUsers().size();
         dao.deleteUser(user);
         sizeAfter = dao.getAllUsers().size();

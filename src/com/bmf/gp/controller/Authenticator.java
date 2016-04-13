@@ -27,8 +27,8 @@ public class Authenticator {
     private static SitesDao siteRetriever = new SitesDao();
 
     // A user storage which stores <username, password>
-    private static Set<UsersEntity> usersStorage = new HashSet<>();
-    private static Set<SitesEntity> sitesStorage = new HashSet<>();
+    private static Set<UsersEntity> usersStorage = new HashSet<UsersEntity>();
+    private static List<SitesEntity> sitesStorage = new ArrayList<SitesEntity>();
 
     @GET
     @Path("/get/{siteKey}/{username}/{password}")
@@ -175,7 +175,7 @@ public class Authenticator {
      * @return TRUE if service key matches the pre-generated ones in service key
      * storage. FALSE for otherwise.
      */
-    public boolean isSiteKeyValid( Set<SitesEntity> sites, String siteKey ) {
+    public boolean isSiteKeyValid( List<SitesEntity> sites, String siteKey ) {
         for(SitesEntity site : sites) {
             if( site.getSiteKey().equals(siteKey)){
                 return true;

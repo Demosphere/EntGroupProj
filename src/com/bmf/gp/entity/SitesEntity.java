@@ -65,12 +65,4 @@ public class SitesEntity {
         result = 31 * result + (users != null ? users.hashCode() : 0);
         return result;
     }
-
-    public String toString() {
-        return "SitesEntity{" +
-                "siteId=" + siteId +
-                ", siteKey='" + siteKey + '\'' +
-                ", users=" + users +
-                '}';
-    }
 }

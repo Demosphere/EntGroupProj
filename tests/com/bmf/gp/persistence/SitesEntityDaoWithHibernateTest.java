@@ -4,6 +4,7 @@ import com.bmf.gp.entity.SitesEntity;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -19,7 +20,7 @@ public class SitesEntityDaoWithHibernateTest {
     public void testGetAllSites() throws Exception {
 
         SitesDao dao = new SitesDao();
-        Set<SitesEntity> sites = dao.getAllSites();
+        List<SitesEntity> sites = dao.getAllSites();
 
         assertTrue("There is the wrong amount in the list", sites.size() > 0);
     }
@@ -36,7 +37,7 @@ public class SitesEntityDaoWithHibernateTest {
     public void testGetSiteIdByKey() throws Exception {
 
         SitesDao dao = new SitesDao();
-        SitesEntity site = dao.getSiteByKey("87d3e948-efd0-40e2-af79-2d532c390d09");
+        SitesEntity site = dao.getSiteByKey("55c40d6a-d498-41e0-899f-c1f4af71f39e");
 
         Integer siteId = site.getSiteId();
         log.info("Site Id: " + siteId);
@@ -63,7 +64,7 @@ public class SitesEntityDaoWithHibernateTest {
         SitesEntity site = new SitesEntity();
         int sizeBefore;
         int sizeAfter;
-        site.setSiteId(13);
+        site.setSiteId(8);
 
         sizeBefore = dao.getAllSites().size();
         dao.deleteSite(site);

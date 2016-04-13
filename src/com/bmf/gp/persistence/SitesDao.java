@@ -17,10 +17,10 @@ import java.util.Set;
 public class SitesDao {
     private final Logger log = Logger.getLogger(this.getClass());
 
-    public Set<SitesEntity> getAllSites() {
-        Set<SitesEntity> sites;
+    public List<SitesEntity> getAllSites() {
+        List<SitesEntity> sites;
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        sites = (Set<SitesEntity>)session.createCriteria
+        sites = (List<SitesEntity>)session.createCriteria
                 (SitesEntity
                         .class).list();
         return sites;

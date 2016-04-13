@@ -17,7 +17,7 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
-          <unit-entry name="hibernate.cfg.xml" value="29193a4b-9f81-4c21-8d14-a501c9f97166" />
+          <unit-entry name="resources:hibernate.cfg.xml" value="b773d8ea-6bff-4afd-a2d3-7caae8600a21" />
         </datasource-map>
         <naming-strategy-map />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/resources/hibernate.cfg.xml" />
@@ -33,11 +33,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="geronimo-osgi-locator-1.0" level="application" />
     <orderEntry type="library" scope="TEST" name="junit" level="application" />
     <orderEntry type="library" name="log4j" level="application" />
     <orderEntry type="library" name="mysql-connector-java-5.1.35-bin" level="application" />
-    <orderEntry type="library" name="Hibernate 4.2.2-4.2.2" level="project" />
-    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
