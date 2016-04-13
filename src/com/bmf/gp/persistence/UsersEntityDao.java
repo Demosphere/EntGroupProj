@@ -13,6 +13,8 @@ public interface UsersEntityDao {
 
     UsersEntity getUser(Integer id);
 
+    UsersEntity getUserByUsername(String username);
+
     void updateUser(UsersEntity user);
 
     Boolean deleteUser(UsersEntity user);

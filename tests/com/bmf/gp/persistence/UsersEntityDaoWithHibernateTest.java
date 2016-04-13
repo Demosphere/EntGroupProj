@@ -1,6 +1,7 @@
 package com.bmf.gp.persistence;
 
 import com.bmf.gp.entity.UsersEntity;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import static org.junit.Assert.*;
  * Created by felic on 2/7/2016.
  */
 public class UsersEntityDaoWithHibernateTest {
+
+    private final Logger log = Logger.getLogger(this.getClass());
 
     @Test
     public void testGetAllUsers() throws Exception {
@@ -28,6 +31,18 @@ public class UsersEntityDaoWithHibernateTest {
         UsersEntity user = dao.getUser(36);
 
         assertNotNull("Could not get user", user);
+    }
+
+    @Test
+    public void testGetUserByUsername() throws Exception {
+
+        UsersEntityDaoWithHibernate dao = new UsersEntityDaoWithHibernate();
+        UsersEntity user = dao.getUserByUsername("Steel");
+
+        Integer userId = user.getUserId();
+        log.info("User Id: " + userId);
+
+        assertNotNull("Could not get user", user.toString());
     }
 
     @Test

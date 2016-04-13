@@ -136,11 +136,7 @@ public class Authenticator {
             if ( siteHasUser(usersStorage, username) ) {
 
                 UsersEntity newUser = new UsersEntity();
-                newUser.setUserId(retrieveUserID(usersStorage, username));
-                newUser.setUserName(username);
-                newUser.setPassword(password);
-                newUser.setUserRole("User");
-                newUser.setSite(siteRetriever.getSiteByKey(siteKey));
+                newUser.setUserId(userRetriever.getUserByUsername(username).getUserId());
 
                 boolean newUserID = userRetriever.deleteUser(newUser);
 
@@ -151,23 +147,6 @@ public class Authenticator {
         return INVALID;
     }
 */
-
-    /**
-     * The method that pre-validates if the client which invokes the REST API is
-     * from a authorized and authenticated source.
-     *
-     * @param siteKey The service key
-     * @param authToken The authorization token generated after login
-     * @return TRUE for acceptance and FALSE for denied.
-     */
-    public boolean isAuthTokenValid( String siteKey, String authToken ) {
-        sitesStorage = siteRetriever.getAllSites();
-        if ( isSiteKeyValid(sitesStorage, siteKey) ) {
-            return true;
-        }
-        return false;
-    }
-
     /**
      * This method checks is the service key is valid
      *
@@ -192,15 +171,5 @@ public class Authenticator {
         }
         return false;
     }
-
-    public Integer retrieveUserID ( Set<UsersEntity> users, String userName) {
-        for (UsersEntity user : users) {
-            if (user.getUserName().equals(userName)) {
-                return user.getUserId();
-            }
-        }
-        return -0;
-    }
-
 }
 

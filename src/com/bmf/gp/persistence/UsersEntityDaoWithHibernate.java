@@ -2,9 +2,11 @@ package com.bmf.gp.persistence;
 
 import com.bmf.gp.entity.UsersEntity;
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,17 @@ public class UsersEntityDaoWithHibernate implements UsersEntityDao {
     public UsersEntity getUser(Integer id) {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         return (UsersEntity)session.get(UsersEntity.class, id);
+    }
+
+    public UsersEntity getUserByUsername(String username) {
+
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+
+        Criteria crit = session.createCriteria(UsersEntity.class);
+        crit.add( Restrictions.eq("userName",username) );
+        List<UsersEntity> users = crit.list();
+
+        return users.get(0);
     }
 
     public void updateUser(UsersEntity user) {
