@@ -15,6 +15,7 @@
     </p>
     <p class="aleft">To log a user into your application, you will need to pass in three parameters:
         your site key, the username, and the user's password. Use the following url to log a user into your application:
+    <pre>@GET</pre>
     <pre>authenticator/validate/<span>{site-key}</span>/<span>{username}</span>/<span>{password}</span></pre>
     </p>
     <p><em>example:</em> <a href="authenticator/validate/55c40d6a-d498-41e0-899f-c1f4af71f39e/Groot/IAmGroot">
@@ -22,6 +23,7 @@
     <p class="aleft">To subscribe a new user, you will need to pass in three parameters: your site key, the username,
         the user's password. The users role will automatically be set by our process as a "user". Use the following url
         to subscribe a user:
+    <pre>@PUT</pre>
     <pre>/auth-resource/subscribe<span>{site-key}</span>/<span>{username}</span>/<span>{password}</span>/
         <span>{role}</span></pre>
     </p>
@@ -29,6 +31,7 @@
         authenticator/subscribe/55c40d6a-d498-41e0-899f-c1f4af71f39e/Groot/IAmGroot</a></p>
     <p class="aleft">To unsubscribe an existing user, you will need to pass in three parameters: your site key,
         the username and password. Use the following url to unsubscribe a user:
+    <pre>@DELETE</pre>
     <pre>/auth-resource/unsubscribe<span>{site-key}</span>/<span>{username}</span>/<span>{password}</span></pre>
     </p>
     <p><em>example:</em> <a href="authenticator/unsubscribe/55c40d6a-d498-41e0-899f-c1f4af71f39e/Groot/IAmGroot">
@@ -39,6 +42,7 @@
     <pre>/authenticator/update<span>{site-key}</span>/<span>{username}</span>/<span>{passwordOld}</span>/
         <span>{passwordNew}</span></pre>
     </p>
+    <pre>@PUT</pre>
     <p><em>example:</em> <a href="authenticator/updatepassword/55c40d6a-d498-41e0-899f-c1f4af71f39e/Groot/IAmGroot/WeAreGroot">
         authenticator/updatepassword/55c40d6a-d498-41e0-899f-c1f4af71f39e/Groot/IAmGroot/WeAreGroot</a></p>
 </article>

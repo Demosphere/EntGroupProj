@@ -46,12 +46,12 @@ public class Authenticator {
             usersStorage = siteRetriever.getSiteByKey(siteKey).getUsers();
             if ( siteHasUser(usersStorage, username) ) {
                 log.info("validate - Site has User");
-                for (UsersEntity user : usersStorage) {
-                    if ( user.getUserName().equals(username) && user.getPassword().equals( password ) ) {
-                        log.info("validate - VALID USER!!!");
 
-                        return mapper.createJSONFromUser(user);
-                    }
+                UsersEntity user = userRetriever.getUserByUsername(username);
+                if ( user.getUserName().equals(username) && user.getPassword().equals( password ) ) {
+                    log.info("validate - VALID USER!!!");
+
+                    return mapper.createJSONFromUser(user);
                 }
                 return errorJSON("Failed User Login", "validate", "Invalid User Password");
             }
@@ -122,16 +122,15 @@ public class Authenticator {
             usersStorage = siteRetriever.getSiteByKey(siteKey).getUsers();
             if (siteHasUser(usersStorage, username)) {
 
-                for (UsersEntity user : usersStorage) {
-                    if (user.getUserName().equals(username) && user.getPassword().equals(password)) {
-                        log.info("unsubscribe - VALID USER!!!");
+                UsersEntity user = userRetriever.getUserByUsername(username);
+                if (user.getUserName().equals(username) && user.getPassword().equals(password)) {
+                    log.info("unsubscribe - VALID USER!!!");
 
-                        UsersEntity newUser = new UsersEntity();
-                        newUser.setUserId(userRetriever.getUserByUsername(username).getUserId());
-                        boolean newUserID = userRetriever.deleteUser(newUser);
+                    UsersEntity newUser = new UsersEntity();
+                    newUser.setUserId(userRetriever.getUserByUsername(username).getUserId());
+                    boolean newUserID = userRetriever.deleteUser(newUser);
 
-                        return mapper.createJSONFromUser(newUser);
-                    }
+                    return mapper.createJSONFromUser(newUser);
                 }
                 return errorJSON("Failed To UnSubscribe User", "unsubscribe", "User Password Invalid");
             }
@@ -162,22 +161,21 @@ public class Authenticator {
             usersStorage = siteRetriever.getSiteByKey(siteKey).getUsers();
             if ( siteHasUser(usersStorage, username) ) {
 
-                for (UsersEntity userIterator : usersStorage) {
-                    if (userIterator.getUserName().equals(username) && userIterator.getPassword().equals(passwordOld)) {
+                UsersEntity userIterator = userRetriever.getUserByUsername(username);
+                if (userIterator.getUserName().equals(username) && userIterator.getPassword().equals(passwordOld)) {
 
-                        UsersEntityDaoWithHibernate dao = new UsersEntityDaoWithHibernate();
-                        UsersEntity user = new UsersEntity();
+                    UsersEntityDaoWithHibernate dao = new UsersEntityDaoWithHibernate();
+                    UsersEntity user = new UsersEntity();
 
-                        user.setSite(siteRetriever.getSiteByKey(siteKey));
-                        user.setUserId(userRetriever.getUserByUsername(username).getUserId());
-                        user.setUserName(username);
-                        user.setPassword(passwordNew);
-                        user.setUserRole(userRetriever.getUserByUsername(username).getUserRole());
+                    user.setSite(siteRetriever.getSiteByKey(siteKey));
+                    user.setUserId(userRetriever.getUserByUsername(username).getUserId());
+                    user.setUserName(username);
+                    user.setPassword(passwordNew);
+                    user.setUserRole(userRetriever.getUserByUsername(username).getUserRole());
 
-                        dao.updateUser(user);
+                    dao.updateUser(user);
 
-                        return mapper.createJSONFromUser(user);
-                    }
+                    return mapper.createJSONFromUser(user);
                 }
                 return errorJSON("Failed User Update", "updatepassword", "User Old Password Invalid, Cannot Update");
             }

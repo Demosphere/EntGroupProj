@@ -10,7 +10,6 @@
         <property name="connection.url">
              <!--jdbc:mysql://127.3.72.130:3306/groupproj-->
 
-
              jdbc:mysql://localhost:3306/groupproj
         </property>
         <property name="connection.username">

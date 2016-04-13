@@ -57,6 +57,7 @@ public class UsersEntity {
         this.userRole = userRole;
     }
 
+    @JsonIgnore
     public SitesEntity getSite() {
         return site;
     }
