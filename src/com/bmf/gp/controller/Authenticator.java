@@ -85,17 +85,20 @@ public class Authenticator {
      * @param password
      * @return TRUE if the user was added
      *         FALSE if there was an error attempting to add the user to the sites userlist.
-     *//*
+     */
 
     @POST
     @Path( "subscribe" )
     @Produces( MediaType.APPLICATION_JSON )
-    public int subscribeUser( String siteKey, String username, String password ) {
+    public String subscribeUser( String siteKey, String username, String password ) {
+        log.info("subscribe - The Call Was Successful");
         sitesStorage = siteRetriever.getAllSites();
         if ( isSiteKeyValid(sitesStorage, siteKey) ) {
 
+            log.info("subscribe - Site Key is Valid");
             usersStorage = siteRetriever.getSiteByKey(siteKey).getUsers();
             if ( !siteHasUser(usersStorage, username) ) {
+                log.info("subscribe - Site has User");
 
                 UsersEntity newUser = new UsersEntity();
                 newUser.setUserName(username);
@@ -105,14 +108,13 @@ public class Authenticator {
 
                 int newUserID = userRetriever.addUser(newUser);
 
-                return ROWS_FOUND;
+                return "User added:" + newUserID;
             }
-            return NO_ROWS;
+            return "Site already has user.";
         }
-        return INVALID;
+        return "Invalid site.";
     }
 
-    */
 /**
      * This method will remove the specified user to the sites userlist.
      *
