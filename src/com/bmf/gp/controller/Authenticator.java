@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 import javax.ws.rs.*;
 import java.util.*;
 /**
+ * This class will control the method calls of the web service for authenticating site, and user CRUDs.
+ *
  * Created by Brendon on 3/31/2016.
  */
 @Path("/authenticator")
@@ -17,10 +19,6 @@ public class Authenticator {
 
     private final Logger log = Logger.getLogger(this.getClass());
     private UserToJSON mapper = new UserToJSON();
-
-    public static final Integer NO_ROWS = -805;
-    public static final Integer ROWS_FOUND = 100;
-    public static final Integer INVALID = -948;
 
     private static UsersEntityDaoWithHibernate userRetriever = new UsersEntityDaoWithHibernate();
     private static SitesDao siteRetriever = new SitesDao();
@@ -41,23 +39,25 @@ public class Authenticator {
     @Path("/validate/{siteKey}/{username}/{password}")
     @Produces("application/json")
     public String validate(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) throws Exception{
-    //public String login(@PathParam("siteKey") String siteKey, @FormParam("username") String username, @FormParam("password") String password ) {
-        log.info("The Call Was Successful");
+    //public String validate(@PathParam("siteKey") String siteKey, @FormParam("username") String username, @FormParam("password") String password ) {
+        log.info("validate - The Call Was Successful");
         if ( isSiteKeyValid(siteRetriever.getAllSites(), siteKey) ) {
-            log.info("Site Key is Valid");
+            log.info("validate - Site Key is Valid");
             usersStorage = siteRetriever.getSiteByKey(siteKey).getUsers();
             if ( siteHasUser(usersStorage, username) ) {
-                log.info("Site has User");
+                log.info("validate - Site has User");
                 for (UsersEntity user : usersStorage) {
                     if ( user.getUserName().equals(username) && user.getPassword().equals( password ) ) {
-                        log.info("VALID USER!!!");
+                        log.info("validate - VALID USER!!!");
 
                         return mapper.createJSONFromUser(user);
                     }
                 }
+                return errorJSON("Failed User Login", "validate", "Invalid User Password");
             }
+            return errorJSON("Failed User Login", "validate", "Site Does Not Contain User");
         }
-        return "failed login";
+        return errorJSON("Failed Site Login", "validate", "Site Key Invalid");
     }
 
     /**
@@ -72,8 +72,8 @@ public class Authenticator {
 
     @PUT
     @Path( "/subscribe/{siteKey}/{username}/{password}" )
-    //@Produces( MediaType.APPLICATION_JSON )
-    public String subscribe(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
+    @Produces("application/json")
+    public String subscribe(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password )  throws Exception {
         log.info("subscribe - The Call Was Successful");
         sitesStorage = siteRetriever.getAllSites();
         if ( isSiteKeyValid(sitesStorage, siteKey) ) {
@@ -94,11 +94,11 @@ public class Authenticator {
 
                 dao.updateSite(site);
 
-                return "User added";
+                return mapper.createJSONFromUser(userNew);
             }
-            return "Site already has user.";
+            return errorJSON("Failed To Subscribe User", "subscribe", "Site Already Has Username");
         }
-        return "Invalid site.";
+        return errorJSON("Failed Site Login", "subscribe", "Site Key Invalid");
     }
 
     /**
@@ -112,25 +112,32 @@ public class Authenticator {
      */
     @DELETE
     @Path( "/unsubscribe/{siteKey}/{username}/{password}" )
-    //@Produces( MediaType.APPLICATION_JSON )
-    public String unsubscribe(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
+    @Produces("application/json")
+    public String unsubscribe(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) throws Exception {
         log.info("unsubscribe - The Call Was Successful");
         sitesStorage = siteRetriever.getAllSites();
-        if ( isSiteKeyValid(sitesStorage, siteKey) ) {
+        if (isSiteKeyValid(sitesStorage, siteKey)) {
 
             log.info("unsubscribe - Site Key is Valid");
             usersStorage = siteRetriever.getSiteByKey(siteKey).getUsers();
-            if ( siteHasUser(usersStorage, username) ) {
+            if (siteHasUser(usersStorage, username)) {
 
-                UsersEntity newUser = new UsersEntity();
-                newUser.setUserId(userRetriever.getUserByUsername(username).getUserId());
-                boolean newUserID = userRetriever.deleteUser(newUser);
+                for (UsersEntity user : usersStorage) {
+                    if (user.getUserName().equals(username) && user.getPassword().equals(password)) {
+                        log.info("unsubscribe - VALID USER!!!");
 
-                return "User Deleted";
+                        UsersEntity newUser = new UsersEntity();
+                        newUser.setUserId(userRetriever.getUserByUsername(username).getUserId());
+                        boolean newUserID = userRetriever.deleteUser(newUser);
+
+                        return mapper.createJSONFromUser(newUser);
+                    }
+                }
+                return errorJSON("Failed To UnSubscribe User", "unsubscribe", "User Password Invalid");
             }
-            return "User not found for site";
+            return errorJSON("Failed To UnSubscribe User", "unsubscribe", "Site Does Not Have Username");
         }
-        return "Site Invalid";
+        return errorJSON("Failed Site Login", "unsubscribe", "Site Key Invalid");
     }
 
     /**
@@ -138,37 +145,45 @@ public class Authenticator {
      *
      * @param siteKey
      * @param username
-     * @param password
+     * @param passwordOld
+     * @param passwordNew
      * @return TRUE if the user was added
      *         FALSE if there was an error attempting to add the user to the sites userlist.
      */
     @PUT
-    @Path( "/updatepassword/{siteKey}/{username}/{password}" )
-    //@Produces( MediaType.APPLICATION_JSON )
-    public String updatepassword(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
-        log.info("update - The Call Was Successful");
+    @Path( "/updatepassword/{siteKey}/{username}/{passwordOld}/{passwordNew}" )
+    @Produces("application/json")
+    public String updatepassword(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("passwordOld") String passwordOld, @PathParam("passwordNew") String passwordNew ) throws Exception {
+        log.info("updatepassword - The Call Was Successful");
         sitesStorage = siteRetriever.getAllSites();
         if ( isSiteKeyValid(sitesStorage, siteKey) ) {
 
-            log.info("update - Site Key is Valid");
+            log.info("updatepassword - Site Key is Valid");
             usersStorage = siteRetriever.getSiteByKey(siteKey).getUsers();
             if ( siteHasUser(usersStorage, username) ) {
 
-                UsersEntityDaoWithHibernate dao = new UsersEntityDaoWithHibernate();
-                UsersEntity user = new UsersEntity();
-                user.setSite(siteRetriever.getSiteByKey(siteKey));
-                user.setUserId(userRetriever.getUserByUsername(username).getUserId());
-                user.setUserName(username);
-                user.setPassword(password);
-                user.setUserRole(userRetriever.getUserByUsername(username).getUserRole());
+                for (UsersEntity userIterator : usersStorage) {
+                    if (userIterator.getUserName().equals(username) && userIterator.getPassword().equals(passwordOld)) {
 
-                dao.updateUser(user);
+                        UsersEntityDaoWithHibernate dao = new UsersEntityDaoWithHibernate();
+                        UsersEntity user = new UsersEntity();
 
-                return "User Updated";
+                        user.setSite(siteRetriever.getSiteByKey(siteKey));
+                        user.setUserId(userRetriever.getUserByUsername(username).getUserId());
+                        user.setUserName(username);
+                        user.setPassword(passwordNew);
+                        user.setUserRole(userRetriever.getUserByUsername(username).getUserRole());
+
+                        dao.updateUser(user);
+
+                        return mapper.createJSONFromUser(user);
+                    }
+                }
+                return errorJSON("Failed User Update", "updatepassword", "User Old Password Invalid, Cannot Update");
             }
-            return "User not found for site";
+            return errorJSON("Failed User Update", "updatepassword", "Site Does Not Have User");
         }
-        return "Site Invalid";
+        return errorJSON("Failed Site Login", "updatepassword", "Site Key Invalid");
     }
 
     /**
@@ -179,18 +194,22 @@ public class Authenticator {
      * storage. FALSE for otherwise.
      */
     public boolean isSiteKeyValid( List<SitesEntity> sites, String siteKey ) {
-        log.info("Here - 1.0");
         for(SitesEntity site : sites) {
-            log.info("Here - 2.0");
             if( site.getSiteKey().equals(siteKey)){
-                log.info("Here - 2.1");
                 return true;
             }
         }
-        log.info("Here - 3.0");
         return false;
     }
 
+    /**
+     * This method checks if the site has the user in it userlist
+     *
+     * @param users
+     * @param userName
+     * @return TRUE if site userlist has username
+     * FALSE for otherwise.
+     */
     public boolean siteHasUser ( Set<UsersEntity> users, String userName) {
         for(UsersEntity user : users) {
             if(user.getUserName().equals(userName)){
@@ -198,6 +217,22 @@ public class Authenticator {
             }
         }
         return false;
+    }
+
+    /**
+     * This method generates a JSON string error message.
+     *
+     * @param errorType
+     * @param method
+     * @param description
+     * @return TRUE if service key matches the pre-generated ones in service key
+     * storage. FALSE for otherwise.
+     */
+    public String errorJSON ( String errorType, String method, String description) {
+        String errorJSON = "{ \"error\": \"" + errorType + "\", \"method\": \"" +
+                method + "\", \"description\": \"" + description + "\" }";
+
+        return errorJSON;
     }
 }
 

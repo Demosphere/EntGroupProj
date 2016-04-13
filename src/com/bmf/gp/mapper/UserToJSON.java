@@ -13,6 +13,13 @@ public class UserToJSON {
     ObjectMapper mapper = new ObjectMapper();
     Logger logger = Logger.getLogger(this.getClass());
 
+    /**
+     * This method will generate a user JSON object from the given UserEntity.
+     *
+     * @param user
+     * @throws JsonProcessingException
+     * @return JSONified UsersEntity
+     */
     public String createJSONFromUser(UsersEntity user) throws JsonProcessingException {
         String jsonString = mapper.writeValueAsString(user);
         //logger.debug(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
