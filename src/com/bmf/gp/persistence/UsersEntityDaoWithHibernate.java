@@ -48,7 +48,7 @@ public class UsersEntityDaoWithHibernate implements UsersEntityDao {
 
         try {
             tx = session.beginTransaction();
-            session.update(user);
+            session.merge(user);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {

@@ -62,6 +62,7 @@ public class Authenticator {
         return "failed login";
     }
 
+<<<<<<< HEAD
 
 /*    @POST
     @Path( "logout/{siteKey}/{username}" )
@@ -75,6 +76,9 @@ public class Authenticator {
     }*/
 
 /**
+=======
+    /**
+>>>>>>> a62684688dc115fc6d6462bfacf00dceb836e453
      * This method will add the specified user to the sites user list.
      *
      * @param siteKey
@@ -115,7 +119,7 @@ public class Authenticator {
         return "Invalid site.";
     }
 
-/**
+    /**
      * This method will remove the specified user to the sites userlist.
      *
      * @param siteKey
@@ -141,6 +145,44 @@ public class Authenticator {
                 boolean newUserID = userRetriever.deleteUser(newUser);
 
                 return "User Deleted";
+            }
+            return "User not found for site";
+        }
+        return "Site Invalid";
+    }
+
+    /**
+     * This method will remove the specified user to the sites userlist.
+     *
+     * @param siteKey
+     * @param username
+     * @param password
+     * @return TRUE if the user was added
+     *         FALSE if there was an error attempting to add the user to the sites userlist.
+     */
+    @PUT
+    @Path( "/updatepassword/{siteKey}/{username}/{password}" )
+    //@Produces( MediaType.APPLICATION_JSON )
+    public String updatepassword(@PathParam("siteKey") String siteKey, @PathParam("username") String username, @PathParam("password") String password ) {
+        log.info("update - The Call Was Successful");
+        sitesStorage = siteRetriever.getAllSites();
+        if ( isSiteKeyValid(sitesStorage, siteKey) ) {
+
+            log.info("update - Site Key is Valid");
+            usersStorage = siteRetriever.getSiteByKey(siteKey).getUsers();
+            if ( siteHasUser(usersStorage, username) ) {
+
+                UsersEntityDaoWithHibernate dao = new UsersEntityDaoWithHibernate();
+                UsersEntity user = new UsersEntity();
+                user.setSite(siteRetriever.getSiteByKey(siteKey));
+                user.setUserId(userRetriever.getUserByUsername(username).getUserId());
+                user.setUserName(username);
+                user.setPassword(password);
+                user.setUserRole(userRetriever.getUserByUsername(username).getUserRole());
+
+                dao.updateUser(user);
+
+                return "User Updated";
             }
             return "User not found for site";
         }
