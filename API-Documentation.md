@@ -2,6 +2,7 @@ API Documentation
 =======
 Loquaciously-Worded Login
 =======
+Version 1.0
 
 ###Overview
 The Loquaciously-Worded Login Service is a RESTful API. Use your browser's address bar to pass parameters to manage users for your web application. There are four management functions which you can perform: log a user into your application, subscribe a user, update user information, and delete a user.
